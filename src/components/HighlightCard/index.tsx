@@ -40,7 +40,7 @@ export function HighlightCard({
                     type={type}
                 />
             </Header>
-            
+
             <Footer>
                 <Amount type={type}>
                     {amount}

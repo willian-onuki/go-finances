@@ -29,7 +29,7 @@ export const Title = styled.Text<TypeProps>`
 `;
 
 export const Icon = styled(Feather) <TypeProps>`
-    /*Was created the IconProps interface, 
+    /*Was created the IconProps interface,
     and the Icon receive the IconProps type
     to define colors for each icon types */
     font-size: ${RFValue(40)}px;
@@ -59,4 +59,3 @@ export const LastTransaction = styled.Text<TypeProps>`
     font-family: ${({ theme }) => theme.fonts.regular};
     color: ${({ theme, type }) => type === 'total' ? theme.colors.shape : theme.colors.text};
 `;
-
