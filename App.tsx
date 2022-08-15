@@ -14,7 +14,8 @@ import {
 
 import theme from './src/global/theme' // does not need the brackets because has the export default
 
-import { Dashboard } from './src/screens/Dashboard'; //Under the Dashboard folder has a file with index name, because when access this folder by default search the index file 
+import { Dashboard } from './src/screens/Dashboard'; //Under the Dashboard folder has a file with index name, because when access this folder by default search the index file
+import { Register } from './src/screens/Register';
 
 export default function App(): JSX.Element {
   const [fontsLoaded] = useFonts({ // the useFonts return a boolean vector and sometimes does not have time to load all fonts imported
@@ -30,7 +31,7 @@ export default function App(): JSX.Element {
   return (
     <ThemeProvider theme={theme}>
       {/* the Dashboard needs to be involved in the ThemeProvider to use the colors theme */}
-      <Dashboard />
+      <Register />
     </ThemeProvider>
   );
 }
