@@ -16,6 +16,7 @@ import theme from './src/global/theme' // does not need the brackets because has
 
 import { Dashboard } from './src/screens/Dashboard'; //Under the Dashboard folder has a file with index name, because when access this folder by default search the index file
 import { Register } from './src/screens/Register';
+import { CategorySelect } from './src/screens/CategorySelect';
 
 export default function App(): JSX.Element {
   const [fontsLoaded] = useFonts({ // the useFonts return a boolean vector and sometimes does not have time to load all fonts imported

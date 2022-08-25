@@ -3,11 +3,11 @@ import { RFValue } from "react-native-responsive-fontsize";
 
 export const Container = styled.View`
   flex: 1;
-  background: ${({theme}) => theme.colors.background};
+  background: ${({ theme }) => theme.colors.background};
 `;
 
 export const Header = styled.View`
-  background: ${({theme}) => theme.colors.primary};
+  background: ${({ theme }) => theme.colors.primary};
 
   width: 100%;
   height:  ${RFValue(113)}px;
@@ -28,4 +28,16 @@ export const Form = styled.View`
   width: 100%;
 
   padding: 24px;
+  justify-content: space-between;
+`;
+
+export const Fields = styled.View`
+
+`;
+
+export const TransactionsTypes = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 8px;
+  margin-bottom: 16px;
 `;
