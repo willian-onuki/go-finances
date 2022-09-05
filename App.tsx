@@ -1,7 +1,12 @@
 //LIBRARY
+import 'react-native-gesture-handler';
+import 'intl';
+import 'intl/locale-data/jsonp/pt-BR'
+
 import React from 'react';
 import AppLoading from 'expo-app-loading';
 import { ThemeProvider } from 'styled-components' // is a context, and enable to components that's inside, the theme
+import { NavigationContainer } from '@react-navigation/native';
 
 //COMPONENTS
 import {
@@ -14,9 +19,8 @@ import {
 
 import theme from './src/global/theme' // does not need the brackets because has the export default
 
-import { Dashboard } from './src/screens/Dashboard'; //Under the Dashboard folder has a file with index name, because when access this folder by default search the index file
-import { Register } from './src/screens/Register';
-import { CategorySelect } from './src/screens/CategorySelect';
+import { AppRoutes } from './src/routes/app.routes';
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 export default function App(): JSX.Element {
   const [fontsLoaded] = useFonts({ // the useFonts return a boolean vector and sometimes does not have time to load all fonts imported
@@ -27,12 +31,19 @@ export default function App(): JSX.Element {
 
   if (!fontsLoaded) {
     // add a delay at splash screen
-    return <AppLoading/>
+    return <AppLoading />
   }
   return (
     <ThemeProvider theme={theme}>
       {/* the Dashboard needs to be involved in the ThemeProvider to use the colors theme */}
-      <Register />
+      <GestureHandlerRootView style={{
+        flex: 1,
+        backgroundColor: theme.colors.background,
+      }}>
+        <NavigationContainer>
+          <AppRoutes />
+        </NavigationContainer>
+      </GestureHandlerRootView>
     </ThemeProvider>
   );
 }

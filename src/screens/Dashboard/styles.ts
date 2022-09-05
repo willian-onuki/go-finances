@@ -2,9 +2,10 @@ import styled from "styled-components/native"; // Brings all the react native el
 import { FlatList, FlatListProps } from "react-native"
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import { Feather } from "@expo/vector-icons";
-import { getBottomSpace, getStatusBarHeight } from "react-native-iphone-x-helper";
+import { getBottomSpace } from "react-native-iphone-x-helper";
 import Constants from "expo-constants";
 import { DataListProps } from ".";
+import { BorderlessButton } from "react-native-gesture-handler"
 
 // Create a component that carry styles
 // Create a variable with the firt world as upercase to the react native understand that's being created a component
@@ -66,9 +67,13 @@ export const UserName = styled.Text`
 
 `;
 
+export const LogoutButton = styled(BorderlessButton)`
+
+`;
+
 /* In StyledComponent we can user other components or library that is not installed by defalt,
-   so we have liberty to styles these components or library as follows down.
-   After styled was used the parentheses, because is a library
+so we have liberty to styles these components or library as follows down.
+After styled was used the parentheses, because is a library
 */
 export const Icon = styled(Feather)`
     color: ${({ theme }) => theme.colors.secondary};
@@ -109,3 +114,9 @@ export const TransactionsList = styled(
         paddingBottom: getBottomSpace()
     }
 })``;
+
+export const Loading = styled.View`
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+`;
