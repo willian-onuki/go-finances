@@ -19,6 +19,7 @@ import { CategorySelect } from '../CategorySelect';
 import { InputForm } from '../../components/Form/InputForm';
 import { useForm } from 'react-hook-form'
 import {useNavigation} from '@react-navigation/native'
+import { useAuth } from '../../hooks/auth';
 
 interface FormData {
   [index: string]: string | number,
@@ -38,9 +39,13 @@ export function Register() {
   const [transactionType, setTransactionType] = useState('');
   const [categoryModalOpen, setCategoryModalOpen] = useState(false);
   const [category, setCategory] = useState({
-    key: 'category',
-    name: 'category',
+    key: 'categoria',
+    name: 'categoria',
   });
+
+  const { user } = useAuth();
+
+  const id = user.id;
 
   const {
     control,
@@ -80,7 +85,7 @@ export function Register() {
     }
 
     try {
-      const dataKey = '@gofinances/transactions';
+      const dataKey = `@gofinances/transactions_user:${id}`;
       const transactions = await AsyncStorage.getItem(dataKey);
       const previousTransactions = transactions ? JSON.parse(transactions) : [];
 
@@ -94,8 +99,8 @@ export function Register() {
       reset();
       setTransactionType('');
       setCategory({
-        key: 'category',
-        name: 'category',
+        key: 'categoria',
+        name: 'categoria',
       });
 
       navigation.navigate('Listagem');

@@ -20,10 +20,9 @@ import {
 
 import theme from './src/global/theme' // does not need the brackets because has the export default
 
-import { AppRoutes } from './src/routes/app.routes';
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-import { SignIn } from './src/screens/SignIn';
-import { AuthProvider } from './src/hooks/auth';
+import { AuthProvider, useAuth } from './src/hooks/auth';
+import { Routes } from './src/routes';
 
 export default function App(): JSX.Element {
   const [fontsLoaded] = useFonts({ // the useFonts return a boolean vector and sometimes does not have time to load all fonts imported
@@ -32,10 +31,13 @@ export default function App(): JSX.Element {
     Poppins_700Bold
   })
 
-  if (!fontsLoaded) {
+  const { userInfoLoading } = useAuth();
+
+  if (!fontsLoaded || userInfoLoading) {
     // add a delay at splash screen
     return <AppLoading />
   }
+
   return (
     <ThemeProvider theme={theme}>
       {/* the Dashboard needs to be involved in the ThemeProvider to use the colors theme */}
@@ -43,13 +45,10 @@ export default function App(): JSX.Element {
         flex: 1,
         backgroundColor: theme.colors.background,
       }}>
-        <NavigationContainer>
-          <StatusBar barStyle='light-content' />
-          <AuthProvider>
-            {/* <AppRoutes /> */}
-            <SignIn />
-          </AuthProvider>
-        </NavigationContainer>
+        <StatusBar barStyle='light-content' />
+        <AuthProvider>
+          <Routes />
+        </AuthProvider>
       </GestureHandlerRootView>
     </ThemeProvider>
   );

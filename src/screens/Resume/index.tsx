@@ -22,6 +22,7 @@ import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import { addMonths, subMonths, format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 import { ActivityIndicator } from 'react-native';
+import { useAuth } from '../../hooks/auth';
 
 interface TransactionData {
   type: "positive" | "negative";
@@ -41,10 +42,10 @@ interface CategoryData {
 
 export function Resume() {
   const theme = useTheme();
+  const { user } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [totalByCategories, setTotalByCategories] = useState<CategoryData[]>([]);
-
 
   function handleDate(action: 'next' | 'previous') {
     if (action === 'next') {
@@ -56,13 +57,13 @@ export function Resume() {
 
   async function loadData() {
     setIsLoading(true);
-    const response = await (AsyncStorage.getItem('@gofinances/transactions'));
+    const response = await (AsyncStorage.getItem(`@gofinances/transactions_user:${user.id}`));
     const transactions: TransactionData[] = response ? JSON.parse(response) : [];
-    const expensives = transactions.filter((transaction: TransactionData) =>
-      transaction.type === "negative"
-      && new Date(transaction.date).getMonth() === selectedDate.getMonth()
-      && new Date(transaction.date).getFullYear() === selectedDate.getFullYear()
-    )
+    const expensives = transactions.filter((transaction: TransactionData) => {
+      return transaction.type === "negative"
+      	&& new Date(transaction.date).getMonth() === selectedDate.getMonth()
+      	&& new Date(transaction.date).getFullYear() === selectedDate.getFullYear()
+    })
 
     const expensiveTotal = expensives
       .reduce((previous: number, current: TransactionData,) => {
