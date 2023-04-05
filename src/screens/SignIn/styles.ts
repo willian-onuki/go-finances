@@ -44,10 +44,11 @@ export const Footer = styled.View`
   width: 100%;
   height: 30%;
   background: ${({ theme }) => theme.colors.secondary};
+  align-items: center;
 `;
 
 export const FooterWrapper = styled.View`
   margin-top: ${RFPercentage(-4)}px;
   padding: 0 32px;
-  /* justify-content: space-between; */
+  justify-content: space-between;
 `;
