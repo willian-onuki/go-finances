@@ -45,8 +45,6 @@ export function Register() {
 
   const { user } = useAuth();
 
-  const id = user.id;
-
   const {
     control,
     handleSubmit,
@@ -85,7 +83,7 @@ export function Register() {
     }
 
     try {
-      const dataKey = `@gofinances/transactions_user:${id}`;
+      const dataKey = `@gofinances/transactions_user:${user.id}`;
       const transactions = await AsyncStorage.getItem(dataKey);
       const previousTransactions = transactions ? JSON.parse(transactions) : [];
 
@@ -137,32 +135,36 @@ export function Register() {
             />
             <TransactionsTypes>
               <TransactionTypeButton
-                type="up"
-                title="Income"
+                type='up'
+                title='Income'
                 onPress={() => handleTransactionTypeSelect('positive')}
                 isActive={transactionType === 'positive'}
               />
               <TransactionTypeButton
-                type="down"
-                title="Outcome"
+                type='down'
+                title='Outcome'
                 onPress={() => handleTransactionTypeSelect('negative')}
                 isActive={transactionType === 'negative'}
               />
             </TransactionsTypes>
 
             <CategorySelectButton
+              testID='button-category'
               title={category.name}
               onPress={handleOpenSelectCategoryModal}
             />
           </Fields>
 
           <Button
-            title="Enviar"
+            title='Enviar'
             onPress={handleSubmit(handleRegister)}
           />
         </Form>
 
-        <Modal visible={categoryModalOpen}>
+        <Modal
+          testID='modal-category'
+          visible={categoryModalOpen}
+        >
           <CategorySelect
             category={category}
             setCategory={setCategory}
